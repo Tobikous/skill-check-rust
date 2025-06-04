@@ -1,0 +1,18 @@
+[package]
+name = "skill-check-rust"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+thiserror = "1.0"
+clap = { version = "4.0", features = ["derive"] }
+
+[[bin]]
+name = "sysctl-parser"
+path = "src/main.rs"
+
+[lib]
+name = "skill_check_rust"
+path = "src/lib.rs"
