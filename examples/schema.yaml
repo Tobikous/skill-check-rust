@@ -1,0 +1,25 @@
+schema:
+  endpoint:
+    type: string
+    required: true
+    description: "サーバーのエンドポイントURL"
+  
+  debug:
+    type: bool
+    required: false
+    description: "デバッグモードの有効/無効"
+  
+  log.file:
+    type: string
+    required: true
+    description: "ログファイルのパス"
+  
+  max.connections:
+    type: int
+    required: false
+    description: "最大接続数"
+  
+  timeout:
+    type: float
+    required: false
+    description: "タイムアウト（秒）" 

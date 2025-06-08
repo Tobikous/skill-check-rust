@@ -1,3 +1,3 @@
 pub mod parser;
 
-pub use parser::{SysctlConfig, SysctlError};
+pub use parser::{SysctlConfig, SysctlError, Schema, SchemaError};

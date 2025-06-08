@@ -3,6 +3,9 @@ use std::io::{BufRead, BufReader, Read};
 use serde_json::{json, Value};
 use thiserror::Error;
 
+pub mod schema;
+pub use schema::{Schema, SchemaError};
+
 #[derive(Error, Debug)]
 pub enum SysctlError {
     #[error("IO error: {0}")]
@@ -13,6 +16,12 @@ pub enum SysctlError {
     
     #[error("JSON conversion error: {0}")]
     Json(#[from] serde_json::Error),
+    
+    #[error("Schema validation error: {0}")]
+    Schema(#[from] SchemaError),
+    
+    #[error("Multiple schema validation errors: {errors}")]
+    MultipleValidationErrors { errors: String },
 }
 
 /// sysctl.confの設定を格納する構造体
@@ -49,6 +58,21 @@ impl SysctlConfig {
         }
 
         Ok(())
+    }
+
+    /// スキーマに対して検証を実行
+    pub fn validate_with_schema(&self, schema: &Schema) -> Result<(), SysctlError> {
+        match schema.validate(&self.settings) {
+            Ok(()) => Ok(()),
+            Err(errors) => {
+                let error_messages: Vec<String> = errors.iter()
+                    .map(|e| e.to_string())
+                    .collect();
+                Err(SysctlError::MultipleValidationErrors {
+                    errors: error_messages.join("; "),
+                })
+            }
+        }
     }
 
     /// 行をスキップすべきかどうかを判定
