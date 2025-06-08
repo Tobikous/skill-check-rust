@@ -1,4 +1,4 @@
-# sysctl-parser (Rust版)
+# 任意のファイルをロードし、辞書型・Map等に格納するプログラム
 
 sysctl.confファイルをパースして、HashMap形式で格納するRustライブラリです。
 
