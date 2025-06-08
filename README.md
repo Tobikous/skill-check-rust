@@ -1,6 +1,7 @@
 # sysctl-parser (Rust版)
 
 sysctl.confファイルをパースして、HashMap形式で格納するRustライブラリです。
+
 AIでコーディングをさせた後、処理の確認とRust言語の構成を学習しています。
 
 ## プロジェクト構造
